@@ -25,6 +25,7 @@ int main()
     a->next = b;
     b->next = c;
     c->next = d;
+    d->next = NULL; // last element
 
     Node *temp = head;
     while( temp != NULL )
