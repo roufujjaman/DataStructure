@@ -18,21 +18,35 @@ void insert_at_tail( Node * &head, int value ) // <<<head input should be pointe
     if( head == NULL )
     {
         head = newNode;
+        cout << "node created" << endl;
         return;
     }
-    Node * temp = head;
-    while( temp->next != NULL )
+    Node * current = head;
+    while( current->next != NULL )
     {
-        temp = temp->next;
+        current = current->next;
     }
-    temp->next = newNode;
+    current->next = newNode;
+    cout << "- inserted at tail" << endl;
+}
+void insert_at( Node * head, int position, int value ) // will crash if position goes out of range
+{
+    Node * newNode = new Node(value);
+    Node * current = head;
+    for( int i = 1; i <= position - 1; i++)
+    {
+        current = current->next;
+    }
+    newNode->next = current->next;
+    current->next = newNode;
+    cout << "- inserted " << value << " at " << position << endl;
 }
 void print_linked_list( Node * head )
 {
     Node * temp = head;
     while( temp != NULL )
     {
-        cout << temp->value << endl;
+        cout << temp->value << " ";
         temp = temp->next;
     }
 }
@@ -41,7 +55,8 @@ int main()
     Node * head = NULL;
     cout << "option 0 - terminate" << endl;
     cout << "option 1 - insert_at_tail()" << endl;
-    cout << "option 2 - print_linked_list()" << endl;
+    cout << "option 2 - insert_at()" << endl;
+    cout << "option 3 - print_linked_list()" << endl;
     int option;
     while( option != 0 )
     {
@@ -50,18 +65,27 @@ int main()
         {
             break;
         }
-        else if ( option == 1 )
+        else if( option == 1 )
         {
             int value;
             cout << "insert value: ";
             cin >> value;
             insert_at_tail(head, value);
         }
-        else if ( option == 2 )
+        else if( option == 2 )
         {
-            cout << "- Linked List -" << endl;
-            print_linked_list(head);
+            int position, value;
+            cout << "insert position, value: ";
+            cin >> position >> value;
+            insert_at(head, position, value);
         }
+        else if( option == 3 )
+        {
+            cout << "LinkedList - ";
+            print_linked_list(head);
+            cout << endl;
+        }
+
     }
     return 0;
 }
