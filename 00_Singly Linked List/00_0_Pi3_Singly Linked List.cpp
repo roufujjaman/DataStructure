@@ -83,6 +83,57 @@ void print( Node* head )
         current = current->next;
     }
 }
+int len(Node* head)
+{
+    int count = 0 ;
+    Node* current = head;
+    while( current != NULL )
+    {
+        current = current->next;
+        count++;
+    }
+    return count;
+}
+bool checkDup( Node* head )
+{
+    int arr[100] = {0};
+    Node* current = head;
+    while( current != NULL )
+    {
+        arr[ current->value - 1 ]++;
+        current = current->next;
+    }
+    for( int i = 0; i < 100; i++ )
+    {
+        if( arr[i] > 1 ) 
+        {
+            return true;
+        };
+    }
+    return false;
+}
+int printByIndex( Node* head, int position )
+{
+    Node* current = head;
+    for( int  i = 0; i < position; i++ )
+    {
+        current = current->next;
+    }
+    return current->value;   
+}
+bool isSorted( Node* head )
+{
+    Node* current = head;
+    while( true )
+    {
+        if( current->next == NULL ) break;
+        if( current->value > current->next->value )
+        {
+            return false;
+        }
+    }
+    return true;
+}
 int main()
 {
     Node* head = NULL;
@@ -102,6 +153,9 @@ int main()
         else if( commandVal == 2 )
         {
             print( head );
+            cout << endl;
+            cout << "Size : " << len( head ) << endl;
+            checkDup( head )? cout << "Duplicate : YES" << endl : cout << "Duplicate : NO" << endl;
         }
         else if ( commandVal == 3 )
         {
@@ -112,6 +166,23 @@ int main()
         {
             cin >> inputVal;
             deleteItem(head, inputVal );
+        }
+        else if ( commandVal == 5 )
+        {
+            int list_length = len(head);
+            if( list_length % 2 == 1 )
+            {
+                cout << "Middle - "<< printByIndex( head, list_length / 2 ) << endl;
+            }
+            else
+            {
+                cout << "Middle - " << printByIndex( head, list_length / 2 - 1 ) << endl;
+                cout << "Middle - " << printByIndex( head, list_length / 2 ) << endl;
+            }
+        }
+        else if ( commandVal == 6 )
+        {
+            isSorted( head )? cout << "Sorted" << endl : cout << "Unsorted" << endl;
         }
     }
     return 0;

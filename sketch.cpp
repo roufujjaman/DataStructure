@@ -47,24 +47,31 @@ void insertItem( Node* &head, int position, int value)
             current = current->next;
         }
         newnode->next = current->next;
-        current->next = newnode;
-        
+        current->next = newnode;       
     }
 }
 void deleteItem( Node* &head, int position, int items = 1 )
 {
+    Node* current = head;
     if( position == 0 )
     {
-        Node* delete_node = head;
         head = head->next;
-        delete delete_node;
+        delete current;
     }
     else
     {
         for( int i = 1; i < position; i++ )
         {
-            
+            current = current->next;
+            if( current->next == NULL )
+            {
+                cout << "came here";
+                return;
+            }
         }
+        Node* delete_node = current->next;
+        current->next = current->next->next;
+        delete delete_node;
     }
 }
 void print( Node* head )
@@ -75,6 +82,57 @@ void print( Node* head )
         cout << current->value << ' ';
         current = current->next;
     }
+}
+int len(Node* head)
+{
+    int count = 0 ;
+    Node* current = head;
+    while( current != NULL )
+    {
+        current = current->next;
+        count++;
+    }
+    return count;
+}
+bool checkDup( Node* head )
+{
+    int arr[100] = {0};
+    Node* current = head;
+    while( current != NULL )
+    {
+        arr[ current->value - 1 ]++;
+        current = current->next;
+    }
+    for( int i = 0; i < 100; i++ )
+    {
+        if( arr[i] > 1 ) 
+        {
+            return true;
+        };
+    }
+    return false;
+}
+int printByIndex( Node* head, int position )
+{
+    Node* current = head;
+    for( int  i = 0; i < position; i++ )
+    {
+        current = current->next;
+    }
+    return current->value;   
+}
+bool isSorted( Node* head )
+{
+    Node* current = head;
+    while( true )
+    {
+        if( current->next == NULL ) break;
+        if( current->value > current->next->value )
+        {
+            return false;
+        }
+    }
+    return true;
 }
 int main()
 {
@@ -95,6 +153,9 @@ int main()
         else if( commandVal == 2 )
         {
             print( head );
+            cout << endl;
+            cout << "Size : " << len( head ) << endl;
+            checkDup( head )? cout << "Duplicate : YES" << endl : cout << "Duplicate : NO" << endl;
         }
         else if ( commandVal == 3 )
         {
@@ -105,6 +166,23 @@ int main()
         {
             cin >> inputVal;
             deleteItem(head, inputVal );
+        }
+        else if ( commandVal == 5 )
+        {
+            int list_length = len(head);
+            if( list_length % 2 == 1 )
+            {
+                cout << "Middle - "<< printByIndex( head, list_length / 2 ) << endl;
+            }
+            else
+            {
+                cout << "Middle - " << printByIndex( head, list_length / 2 - 1 ) << endl;
+                cout << "Middle - " << printByIndex( head, list_length / 2 ) << endl;
+            }
+        }
+        else if ( commandVal == 6 )
+        {
+            isSorted( head )? cout << "Sorted" << endl : cout << "Unsorted" << endl;
         }
     }
     return 0;
