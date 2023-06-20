@@ -58,11 +58,6 @@ void delete_at( Node * head, int position )
             return;
         }
     }
-    if( current->next == NULL )
-    {
-        cout << "invalid position" << endl;
-        return;
-    }
     Node * deleteNode = current->next;
     current->next = current->next->next;
     delete deleteNode;

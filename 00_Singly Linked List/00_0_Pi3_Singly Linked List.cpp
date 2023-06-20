@@ -12,21 +12,18 @@ class Node
         this->next = NULL;
     } 
 };
-void push(  Node* &head, int value )
+void push(  Node* &head, Node* &tail, int value )
 {
     Node* newnode = new Node( value );
     if( head == NULL )
     {
         head = newnode;
+        tail = newnode;
         cout << "new value added at head" << endl;
         return;
     }
-    Node* current = head;
-    while( current->next != NULL )
-    {   
-        current = current->next;
-    }
-    current->next = newnode;
+    tail->next = newnode;
+    tail = newnode;
     cout << "new value pushed" << endl;
 }
 void insertItem( Node* &head, int position, int value)
@@ -65,22 +62,12 @@ void deleteItem( Node* &head, int position, int items = 1 )
             current = current->next;
             if( current->next == NULL )
             {
-                cout << "came here";
                 return;
             }
         }
         Node* delete_node = current->next;
         current->next = current->next->next;
         delete delete_node;
-    }
-}
-void print( Node* head )
-{
-    Node* current = head;
-    while( current != NULL )
-    {
-        cout << current->value << ' ';
-        current = current->next;
     }
 }
 int len(Node* head)
@@ -112,6 +99,15 @@ bool checkDup( Node* head )
     }
     return false;
 }
+void print( Node* head )
+{
+    Node* current = head;
+    while( current != NULL )
+    {
+        cout << current->value << ' ';
+        current = current->next;
+    }
+}
 int printByIndex( Node* head, int position )
 {
     Node* current = head;
@@ -120,6 +116,12 @@ int printByIndex( Node* head, int position )
         current = current->next;
     }
     return current->value;   
+}
+void printReverse( Node* head )
+{
+    if ( head == NULL ) return;
+    printReverse( head->next );
+    cout << head->value << ' ';
 }
 bool isSorted( Node* head )
 {
@@ -131,12 +133,14 @@ bool isSorted( Node* head )
         {
             return false;
         }
+        current = current->next;
     }
     return true;
 }
 int main()
 {
     Node* head = NULL;
+    Node* tail = NULL;
     while( true )
     {
         int commandVal, inputVal, posVal;
@@ -148,14 +152,14 @@ int main()
         else if ( commandVal == 1 )
         {
             cin >> inputVal;
-            push( head, inputVal );
+            push( head, tail, inputVal );
         }
         else if( commandVal == 2 )
         {
             print( head );
             cout << endl;
             cout << "Size : " << len( head ) << endl;
-            checkDup( head )? cout << "Duplicate : YES" << endl : cout << "Duplicate : NO" << endl;
+            checkDup( head )? cout << "Duplicate : YES" << endl : cout << "Duplicate : NO" << endl; // program will crash if given value is bigger than 100;
         }
         else if ( commandVal == 3 )
         {
@@ -183,6 +187,10 @@ int main()
         else if ( commandVal == 6 )
         {
             isSorted( head )? cout << "Sorted" << endl : cout << "Unsorted" << endl;
+        }
+        else if ( commandVal == 7 )
+        {
+            printReverse( head );
         }
     }
     return 0;
