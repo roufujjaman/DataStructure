@@ -1,11 +1,11 @@
-#include<bits/stdc++.h>
+#include <bits/stdc++.h>
+
 using namespace std;
 class Node
 {
     public:
         int value;
         Node* next;
-
         Node( int value )
         {
             this->value = value;
@@ -19,56 +19,42 @@ void push( Node* &head, Node* &tail, int value )
     {
         head = newnode;
         tail = newnode;
+        return;
     }
     tail->next = newnode;
     tail = newnode;
 }
-void print( Node* head )
+void insertAtHead( Node* &head, Node* &tail, int value )
 {
-    for( Node* i = head; i != NULL; i = i->next )
+    Node* newnode = new Node( value );
+    if( head == NULL )
     {
-        cout << i->value << ' ';
+        head = newnode;
+        tail = newnode;
+        return;
     }
-}
-void sortList( Node* head )
-{
-    for( Node* i = head; i->next != NULL; i = i->next )
-    {
-        for( Node* j = i->next; j != NULL; j = j->next )
-        {
-            if( i->value > j->value )
-            {
-                swap( i->value, j->value );
-            }
-        }
-    }
+    newnode->next = head;
+    head = newnode;
 }
 int main()
 {
+    // Write your code here
     Node* head = NULL;
     Node* tail = NULL;
-
-    int commandVal, inputVal;
-    while( true )
+    int count, x, v;
+    cin >> count;
+    for( int i = 0; i < count; i++ )
     {
-        cin >> commandVal;
-        if( commandVal == 0 )
+        cin >> x >> v;
+        if( x ==  0 )
         {
-            break;
+            insertAtHead( head, tail, v );
         }
-        else if ( commandVal == 1 )
+        else
         {
-            cin >> inputVal;
-            push( head, tail, inputVal );
+            push( head, tail, v );
         }
-        else if( commandVal == 2 )
-        {
-            print( head );
-        }
-        else if ( commandVal == 3 )
-        {
-            sortList( head );
-        }
+        cout << head->value << ' ' << tail->value << endl;
     }
     return 0;
 }
