@@ -1,60 +1,62 @@
-#include <bits/stdc++.h>
-
+#include<bits/stdc++.h>
 using namespace std;
 class Node
 {
     public:
         int value;
         Node* next;
+        Node* prev;
         Node( int value )
         {
             this->value = value;
             this->next = NULL;
+            this->prev = NULL;
         }
 };
-void push( Node* &head, Node* &tail, int value )
+void print( Node *head )
 {
-    Node* newnode = new Node( value );
-    if( head == NULL )
+    Node* current = head;
+    while( current != NULL )
     {
-        head = newnode;
-        tail = newnode;
-        return;
+        cout << current->value << ' ';
+        current = current->next;
     }
-    tail->next = newnode;
-    tail = newnode;
 }
-void insertAtHead( Node* &head, Node* &tail, int value )
+void printReverse( Node *tail )
 {
-    Node* newnode = new Node( value );
-    if( head == NULL )
+    Node *current = tail;
+    while( current != NULL )
     {
-        head = newnode;
-        tail = newnode;
-        return;
+        cout << current->value << ' ';
+        current = current->prev;
     }
-    newnode->next = head;
-    head = newnode;
+}
+void insertAt( Node *head, int position, int value )
+{
+    Node *newnode = new Node( value );
+    Node *current = head;
+    for( int i = 0; i < position; i++ )
+    {
+        cout << i << ' ' << current->value << endl;
+        current = current->next;
+    }
 }
 int main()
 {
-    // Write your code here
-    Node* head = NULL;
-    Node* tail = NULL;
-    int count, x, v;
-    cin >> count;
-    for( int i = 0; i < count; i++ )
-    {
-        cin >> x >> v;
-        if( x ==  0 )
-        {
-            insertAtHead( head, tail, v );
-        }
-        else
-        {
-            push( head, tail, v );
-        }
-        cout << head->value << ' ' << tail->value << endl;
-    }
+    Node *head = new Node( 10 );
+    Node *a = new Node( 20 );
+    Node *b = new Node( 30 );
+    Node *c = new Node( 40 );
+    Node *tail = c;
+
+    //connections
+    head->next = a;
+    a->prev = head;
+    a->next = b;
+    b->prev = a;
+    b->next = c;
+    c->prev = b;
+    insertAt( head, 3 , 100 );
+    print( head );    
     return 0;
 }
