@@ -31,6 +31,20 @@ void printReverse( Node *tail )
         current = current->prev;
     }
 }
+void insertAt( Node *head, int position, int value )
+{
+    Node *newnode = new Node( value );
+    Node *current = head;
+    for( int i = 1; i < position; i++ )
+    {
+        current = current->next;
+    }
+    newnode->next = current->next;
+    newnode->prev = current;
+    current->next->prev = newnode;
+    current->next = newnode;
+
+}
 int size( Node *head )
 {
     Node *current = head;
@@ -42,29 +56,31 @@ int size( Node *head )
     }
     return count;    
 }
-void insertTail( Node *&head, Node *&tail, int value ) //<<<<<<<<
-{
-    Node *newnode = new Node( value );
-    if( tail == NULL )
-    {
-        head = newnode;
-        tail = newnode;
-        return;
-    }
-    tail->next = newnode;
-    newnode->prev = tail;
-    tail = tail->next;
-}
 int main()
 {
-    Node *head = NULL;
-    Node *tail = NULL;
-    int inputVal;
-    while ( true )
+    Node *head = new Node( 10 );
+    Node *a = new Node( 20 );
+    Node *b = new Node( 30 );
+    Node *c = new Node( 40 );
+    Node *tail = c;
+
+    //connections
+    head->next = a;
+    a->prev = head;
+    a->next = b;
+    b->prev = a;
+    b->next = c;
+    c->prev = b;
+
+    int position, value;
+    cin >> position >> value;
+    if( position >= size( head ) )
     {
-        cin >> inputVal;
-        if( inputVal == -1 ) break;
-        insertTail( head, tail, inputVal );
+        cout << "Invalid" << endl;
+    }
+    else 
+    {
+        insertAt( head, position, value );
     }
     print( head );    
     cout << endl;
