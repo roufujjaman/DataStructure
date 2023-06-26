@@ -98,7 +98,7 @@ int main()
             cout << "invalid" << endl;
             continue;
         }
-        else
+        else    
         {
             insertAtPosition( head, tail, positionVal, inputVal );
         }
