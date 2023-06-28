@@ -11,7 +11,7 @@ class Node
             this->value = value;
             this->next = NULL;
         }
-}
+};
 void print( Node *head )
 {
     Node *current = head;
@@ -50,20 +50,39 @@ int main()
     Node *head_one = NULL;
     Node *tail_one = NULL;
     Node *head_two = NULL;
-    Node *head_two = NULL;
+    Node *tail_two = NULL;
     int inputVal;
     while( true )
     {
         cin >> inputVal;
-        if( inputVal == NULL ) break;
+        if( inputVal == -1 ) break;
         insertAtTail( head_one, tail_one, inputVal );
     }
-    while( true )
+    
+    print( head_one );
+    
+    Node *current_one = head_one;
+    while ( current_one != NULL )
     {
-        cin >> inputVal;
-        if( inputVal == NULL ) break;
-        insertAtTail( head_two, tail_two, inputVal );
+        insertAtTail( head_two, tail_two, current_one->value );
+        current_one = current_one->next;   
     }
     
+    listReverse( head_two, head_two );
+    print( head_two );
+    
+    current_one = head_one;
+    Node *current_two = head_two;
+    bool isPalindrome = true;
+    while( current_one != NULL )
+    {
+        if( current_one->value != current_two->value )
+        {
+            isPalindrome = false;
+        }
+        current_one = current_one->next;
+        current_two = current_two->next;
+    }
+    isPalindrome? cout << "palindrome - YES" : cout << "palindrome - NO"; 
     return 0;
 }

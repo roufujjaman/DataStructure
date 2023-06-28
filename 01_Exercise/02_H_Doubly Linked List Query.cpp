@@ -66,17 +66,64 @@ void insertAtHead( Node *&head, Node *&tail, int val )
 }
 int main()
 {
-    vector<string> mystr;
-    string inputVal;
-    while( true )
+    Node *head = NULL;
+    Node *tail = NULL;
+    int size = 0;
+    int count, queryVal, inputVal;
+    cin >> count;
+    for ( int i = 0; i < count; i++ )
     {
-        cin >> inputVal;
-        if( inputVal == "end" ) break;
-        mystr.push_back( inputVal );
-    } 
-    for( string val: mystr )
-    {
-        cout << val << endl;
+        cin >> queryVal >> inputVal;
+        if( queryVal > size )
+        {
+            cout << "Invalid" << endl;
+            continue;
+        }
+        else if( queryVal == 0 )
+        {
+            insertAtHead( head, tail, inputVal );
+            size++;
+        }
+        else if( queryVal == size && queryVal > 0)
+        {
+            insertAtTail( tail, inputVal );
+            size++;
+        }
+        else
+        {
+            insertAt( head, queryVal, inputVal );
+            size++;
+        }
+        cout << "L -> ";
+        print( head );
+        cout << endl;
+        
+        cout << "R -> ";
+        printReverse( tail );
+        cout << endl;
     }
     return 0;
 }
+
+
+// Sample Output 1
+
+// L -> 10 
+// R -> 10 
+// L -> 10 20 
+// R -> 20 10 
+// L -> 30 10 20 
+// R -> 20 10 30 
+// L -> 30 40 10 20 
+// R -> 20 10 40 30 
+// Invalid
+// L -> 60 30 40 10 20 
+// R -> 20 10 40 30 60 
+// L -> 60 30 40 10 70 20 
+// R -> 20 70 10 40 30 60 
+// L -> 60 30 40 10 80 70 20 
+// R -> 20 70 80 10 40 30 60 
+// L -> 60 30 90 40 10 80 70 20 
+// R -> 20 70 80 10 40 90 30 60 
+// L -> 60 100 30 90 40 10 80 70 20 
+// R -> 20 70 80 10 40 90 30 100 60 
