@@ -3,26 +3,26 @@ using namespace std;
 class Stack
 {
     public:
-        list<int> l;
+        vector<int> v;
         void push( int val )
         {
-            l.push_back( val );
+            v.push_back( val );
         }
         void pop()
         {
-            l.pop_back();
+            v.pop_back();
         }
         int top()
         {
-            return l.back();
+            return v.back();
         }
         int size()
         {
-            return l.size();
+            return v.size();
         }
         bool empty()
         {
-            if( l.size() == 0 ) return true;
+            if( v.size() == 0 ) return true;
             else return false;
         }
 };
