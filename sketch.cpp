@@ -1,45 +1,39 @@
-#include <bits/stdc++.h>
+#include<bits/stdc++.h>
 using namespace std;
-class Stack
+class myStack
 {
     public:
-        list<int> l;
+        vector<int> arr;
+        int sz = 0;
         void push( int val )
         {
-            l.push_back( val );
+            arr.push_back( val );
+            sz++;
         }
         void pop()
         {
-            l.pop_back();
+            arr.pop_back();
+            sz--;
         }
         int top()
         {
-            return l.back();
+            return arr.back();
         }
         int size()
         {
-            return l.size();
+            return sz;
         }
         bool empty()
         {
-            if( l.size() == 0 ) return true;
-            else return false;
+            sz == 0 ? true : false;
         }
 };
 int main()
-{   
-    Stack myStack;
-    int count, inputVal;
-    cin >> count;
-    for( int i = 0; i < count; i++)
-    {   
-        cin >> inputVal;
-        myStack.push( inputVal );
-    }
-    while( !myStack.empty() )
-    {
-        cout << myStack.top() << ' ';
-        myStack.pop();
-    }
+{
+    myStack arr;
+    arr.push(100);
+    cout << arr.size() << endl;
+    arr.pop();
+    arr.pop();
     return 0;
 }
