@@ -32,9 +32,9 @@ int main()
     myStack.push( 100 );
     myStack.push( 200 );
     cout << myStack.top() << endl;
-    myStack.pop();
+    if( !myStack.empty() ) myStack.pop(); 
     cout << myStack.top() << endl;
-    myStack.pop();
+    if( !myStack.empty() ) myStack.pop(); 
     myStack.empty()? cout << "-EMPTY-" << endl : cout << myStack.top() << endl;
     return 0;
 }

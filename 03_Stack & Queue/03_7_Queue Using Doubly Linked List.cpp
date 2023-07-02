@@ -9,11 +9,11 @@ class Node
         Node( int val )
         {
             this->val = val;
-            this->prev = NULL;
             this->next = NULL;
+            this->prev = NULL;
         }
 };
-class myStack
+class myQueue
 {
     public:
         Node *head = NULL;
@@ -31,21 +31,24 @@ class myStack
             }
             new_node->prev = tail;
             tail->next = new_node;
-            tail = new_node;
+            tail = tail->next;
         }
-        void pop()
+        void pop() ///XXP
         {
-            Node *delete_node = tail;
             sz--;
-            tail = tail->prev;
-            tail->next = NULL; ////////XXC
+            Node *delete_node = head;
+            head = head->next;
             delete delete_node;
-            if( tail == NULL ) head = NULL;
+            if( head == NULL )
+            {
+                tail = NULL;
+                return;
+            }
+            head->prev = NULL;
         }
-        int top()
+        int front()
         {
-            // if( tail == NULL ) return;
-            return tail->val;
+            return head->val;
         }
         int size()
         {
@@ -54,22 +57,23 @@ class myStack
         bool empty()
         {
             if( sz == 0 ) return true;
-            else return false; 
+            else return false;
         }
 };
 int main()
 {
-    myStack obj;
-    int count, input_val;
+    myQueue obj;
+    int count, inputVal;
     cin >> count;
     for( int i = 0; i < count; i++ )
-    {   
-        cin >> input_val;
-        obj.push( input_val );
-    }
-    while ( !obj.empty() )
     {
-        cout << obj.top() << ' ';
+        cin >> inputVal;
+        obj.push( inputVal );
+    }
+    cout << obj.size() << endl;
+    while( !obj.empty() )
+    {
+        cout << obj.front() << endl;
         obj.pop();
     }
     return 0;
