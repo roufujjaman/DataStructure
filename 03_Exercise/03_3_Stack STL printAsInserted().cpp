@@ -1,11 +1,11 @@
 #include<bits/stdc++.h>
 using namespace std;
-void printReverse( queue<int> obj )
+void printAsInserted( stack<int> obj )
 {
     stack<int> obj_new;
     while ( !obj.empty() )
     {
-        obj_new.push( obj.front() );
+        obj_new.push( obj.top() );
         obj.pop();
     }
     while( !obj_new.empty() )
@@ -17,7 +17,7 @@ void printReverse( queue<int> obj )
 }
 int main()
 {
-    queue<int> obj;
+    stack<int> obj;
     int count, inputVal;
     cin >> count;
     for( int i = 0; i < count; i++ )
@@ -25,6 +25,6 @@ int main()
         cin >> inputVal;
         obj.push( inputVal );
     }
-    printReverse( obj );
+    printAsInserted( obj );
     return 0;
 }
