@@ -1,30 +1,25 @@
 #include<bits/stdc++.h>
 using namespace std;
-void printReverse( queue<int> obj )
-{
-    stack<int> obj_new;
-    while ( !obj.empty() )
-    {
-        obj_new.push( obj.front() );
-        obj.pop();
+class Solution {
+public:
+    int arr[3] = {0};
+    bool isValid(string s) {
+        for( char c:s )
+        {
+            if( c == '(') arr[0]++;
+            else if( c == ')' ) arr[0]--;
+            if( c == '{') arr[0]++;
+            else if( c == '}' ) arr[0]--;
+            if( c == '[') arr[0]++;
+            else if( c == ']' ) arr[0]--;
+        }
+        if( arr[0] == 0 && arr[1] == 0 && arr[2] == 0 ) return true;
+        else return false;
     }
-    while( !obj_new.empty() )
-    {
-        cout << obj_new.top() << ' ';
-        obj_new.pop();
-    }
-    cout << endl;
-}
+};
 int main()
 {
-    queue<int> obj;
-    int count, inputVal;
-    cin >> count;
-    for( int i = 0; i < count; i++ )
-    {   
-        cin >> inputVal;
-        obj.push( inputVal );
-    }
-    printReverse( obj );
+    Solution obj;
+    cout << obj.isValid( "(]" );
     return 0;
 }
