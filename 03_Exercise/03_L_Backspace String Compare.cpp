@@ -1,26 +1,30 @@
 class Solution {
 public:
-    stack<char> objS, objT;
     bool backspaceCompare(string s, string t) {
-        for( char C:s )
+        stack<char> objS, objT;
+        for( char c:s )
         {
-            if( C == '#' )
+            if( c == '#' )
             {
                 if( objS.empty() ) continue;
                 objS.pop();
-                continue;
             }
-            objS.push( C );
+            else 
+            {
+                objS.push( c );
+            }
         }
-        for( char C:t )
+        for( char c:t )
         {
-            if( C == '#' )
+            if( c == '#' )
             {
                 if( objT.empty() ) continue;
                 objT.pop();
-                continue;
             }
-            objT.push( C );
+            else
+            {
+                objT.push( c );
+            }
         }
         if( objS.size() != objT.size() ) return false;
         while( !objS.empty() )
