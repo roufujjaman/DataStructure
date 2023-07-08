@@ -1,66 +1,66 @@
 #include<bits/stdc++.h>
 using namespace std;
-class Node
-{
-    public:
-        int val;
-        Node *next;
-        Node *prev;
-        Node( int val )
-        {
-            this->val = val;
-            this->next = NULL;
-            this->next = NULL;
-        }
-};
-class Stack
-{
-    private:
-        Node *head = NULL;
-        Node *tail = NULL;
-        int sz = 0; 
-    public:
-        void push( int val )
-        {
-            Node *new_node = new Node( val );
-            sz++;
-            if( head == NULL )
-            {
-                head = new_node;
-                tail = new_node;
-                return;
-            }
-            tail->next = new_node;
-            new_node->prev = tail;
-            tail = tail->next;
-        }
-        void pop()
-        {
-            Node *delete_node = tail;
-            tail = tail->prev;
-            delete delete_node;
-            sz--;
-            if( tail == NULL )
-            {
-                head = NULL;
-                return;
-            }
-            tail->next = NULL;
-        }
-        int top()
-        {
-            return tail->val;
-        }
-        int size()
-        {
-            return sz;
-        }
-        bool empty()
-        {
-            if( sz == 0 ) return true;
-            else return false;
-        }
-};
+// class Node
+// {
+//     public:
+//         int val;
+//         Node *next;
+//         Node *prev;
+//         Node( int val )
+//         {
+//             this->val = val;
+//             this->next = NULL;
+//             this->next = NULL;
+//         }
+// };
+// class Stack
+// {
+//     private:
+//         Node *head = NULL;
+//         Node *tail = NULL;
+//         int sz = 0; 
+//     public:
+//         void push( int val )
+//         {
+//             Node *new_node = new Node( val );
+//             sz++;
+//             if( head == NULL )
+//             {
+//                 head = new_node;
+//                 tail = new_node;
+//                 return;
+//             }
+//             tail->next = new_node;
+//             new_node->prev = tail;
+//             tail = tail->next;
+//         }
+//         void pop()
+//         {
+//             Node *delete_node = tail;
+//             tail = tail->prev;
+//             delete delete_node;
+//             sz--;
+//             if( tail == NULL )
+//             {
+//                 head = NULL;
+//                 return;
+//             }
+//             tail->next = NULL;
+//         }
+//         int top()
+//         {
+//             return tail->val;
+//         }
+//         int size()
+//         {
+//             return sz;
+//         }
+//         bool empty()
+//         {
+//             if( sz == 0 ) return true;
+//             else return false;
+//         }
+// };
 void insertAtBottom( stack<int> &obj, int ele )
 {
     if ( obj.empty() )
