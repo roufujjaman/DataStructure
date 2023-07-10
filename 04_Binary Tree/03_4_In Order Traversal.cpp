@@ -13,12 +13,12 @@ class Node
             this->left = NULL;
         }
 };
-void postorder( Node *root )
+void inorder( Node *root )
 {
     if( root == NULL ) return;
     postorder( root->left );
-    postorder( root->right );
     cout << root->val << ' ';
+    postorder( root->right );
 }
 int main()
 {
