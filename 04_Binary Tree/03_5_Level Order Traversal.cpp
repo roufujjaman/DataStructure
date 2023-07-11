@@ -30,6 +30,7 @@ void level_order( Node *root )
         if(  f->left != NULL ) q.push( f->left );
         if( f->right != NULL ) q.push( f->right );
     }
+    
 }
 int main()
 {
@@ -57,4 +58,3 @@ int main()
     level_order( root );
     return 0;
 }
-
