@@ -63,7 +63,7 @@ Node *input_tree()
     if( inputVal == -1 ) root = NULL;
     else root = new Node( inputVal );
     queue<Node *> q;
-    q.push( root );
+    q.push( root ); // if( root != NULL ) q.push( root );
     while ( !q.empty() )
     {
         // s t e p - 1
