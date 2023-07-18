@@ -43,7 +43,7 @@ Node * input_tree()
     } 
     return root;
 }
-bool find_node( Node * root, int query_val ) // 
+bool find_node( Node * root, int query_val ) // O( height ) for good BST;
 {
     if( root == NULL ) return false;
     if( root->val == query_val ) return true;
@@ -72,28 +72,9 @@ void level_order( Node * root )
         if( parent->right != NULL ) q.push( parent->right );
     }
 }
-void insert_node( Node * & root, int input_val )
-{
-    if( root == NULL )
-    {
-        root = new Node( input_val );
-        return;
-    }
-    if( input_val < root->val )
-    {
-        if( root->left == NULL ) root->left = new Node( input_val );
-        else insert_node( root->left, input_val );
-    }
-    else
-    {
-        if( root->right == NULL ) root->right = new Node( input_val );
-        else insert_node( root->right, input_val );
-    }
-}
 int main()
 {
-    Node * root = input_tree();
-    insert_node( root, 13 );
+    Node * root = input_tree(); // 10 5 15 2 6 12 16 -1 3 -1 -1 -1 -1 -1 -1 -1 -1
     level_order( root );
     find_node( root, 100 )? cout << "FOUND" : cout << "NOT FOUND";
     return 0;
