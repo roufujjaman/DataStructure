@@ -4,8 +4,8 @@ class Node
 {
     public:
         int val;
-        Node * left;
-        Node * right;
+        Node *left;
+        Node *right;
         Node( int val )
         {
             this->val = val;
@@ -24,7 +24,7 @@ Node * input_tree()
     if( root != NULL ) q.push( root );
     while( !q.empty() )
     {
-        Node * parent = q.front();
+        Node *parent = q.front();
         q.pop();
 
         int input_val_l, input_val_r;
@@ -40,30 +40,17 @@ Node * input_tree()
 
         if( parent->left != NULL ) q.push( parent->left );
         if( parent->right != NULL ) q.push( parent->right );
-    } 
+    }
     return root;
 }
-bool find_node( Node * root, int query_val ) // 
-{
-    if( root == NULL ) return false;
-    if( root->val == query_val ) return true;
-    if( query_val < root->val )
-    {
-        return find_node( root->left, query_val );
-    }
-    else
-    {
-        return find_node( root->right, query_val );
-    }
-}
-void level_order( Node * root )
+void LO_traverse( Node * root )
 {
     if( root == NULL ) return;
     queue<Node *> q;
     q.push( root );
     while( !q.empty() )
     {
-        Node * parent = q.front();
+        Node *parent = q.front();
         q.pop();
 
         cout << parent->val << ' ';
@@ -72,7 +59,20 @@ void level_order( Node * root )
         if( parent->right != NULL ) q.push( parent->right );
     }
 }
-void insert_node( Node * & root, int input_val )
+bool find_node( Node *root, int query_val )
+{
+    if( root == NULL ) return false;
+    if( root->val == query_val ) return true;
+    if( query_val < root->val ) 
+    {
+        return find_node( root->left, query_val );
+    }
+    else
+    {
+        return find_node( root->right, query_val );
+    }
+}
+void insert_node( Node *&root, int input_val )
 {
     if( root == NULL )
     {
@@ -86,15 +86,21 @@ void insert_node( Node * & root, int input_val )
     }
     else
     {
-        if( root->right == NULL ) root->right = new Node( input_val );
+        if( root->right > NULL ) root->right = new Node( input_val );
         else insert_node( root->right, input_val );
     }
 }
 int main()
 {
-    Node * root = input_tree();
-    insert_node( root, 13 );
-    level_order( root );
-    find_node( root, 100 )? cout << "FOUND" : cout << "NOT FOUND";
+    Node * root = NULL;
+    insert_node( root, 10 );
+    insert_node( root, 5 );
+    insert_node( root, 15 );
+    insert_node( root, 2 );
+    insert_node( root, 6 );
+    insert_node( root, 3 );
+    insert_node( root, 16 );
+    insert_node( root, 12 );
+    LO_traverse( root );
     return 0;
 }
