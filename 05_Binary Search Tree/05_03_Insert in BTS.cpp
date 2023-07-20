@@ -86,7 +86,7 @@ void insert_node( Node *&root, int input_val )
     }
     else
     {
-        if( root->right > NULL ) root->right = new Node( input_val );
+        if( root->right == NULL ) root->right = new Node( input_val );
         else insert_node( root->right, input_val );
     }
 }
