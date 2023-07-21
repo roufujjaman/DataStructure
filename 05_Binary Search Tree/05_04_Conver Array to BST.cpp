@@ -31,7 +31,7 @@ void lo_traverse(Node* root)
 }
 Node* convert(int arr[], int left, int right)
 {
-    if( left > right ) return NULL;
+    if(left > right) return NULL;
     int mid = (left + right) / 2; 
     Node* root = new Node(arr[mid]);
     Node* left_root = convert(arr, left, mid - 1);

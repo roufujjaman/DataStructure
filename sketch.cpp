@@ -9,60 +9,79 @@ class Node
         Node(int val)
         {
             this->val = val;
-            this->left = NULL;
-            this->right = NULL;
+            this->left = left;
+            this->right = right;
         }
 };
-void insert_node(Node* & root, int insert_val)
+Node* input()
 {
-    if(root == NULL)
+    int input_val;
+    cin >> input_val;
+    Node* root;
+    if(input_val == -1)
     {
-        root = new Node(insert_val);
-        return;
+        root = NULL;
+        return root;
     }
-    if(insert_val < root->val)
-    {
-        if(root->left == NULL) root->left = new Node(insert_val);
-        else insert_node(root->left, insert_val);
-    }
-    else if(insert_val > root->val)
-    {
-        if(root->right == NULL) root->right = new Node(insert_val);
-        else insert_node(root->right, insert_val);
-    }
-}
-void lo_traversal( Node* root )
-{
-    if( root == NULL ) return;
+    else root = new Node(input_val);
     queue<Node*> q;
-    q.push( root );
-    while( !q.empty() )
+    q.push(root);
+    while(!q.empty())
     {
         Node* parent = q.front();
         q.pop();
 
-        cout << parent->val << ' ';
+        int input_val_left, input_val_right;
+        cin >> input_val_right >> input_val_left;
+        if(input_val_left == -1) parent->left = NULL;
+        else parent->left = new Node(input_val_left);
+        if(input_val_right == -1) parent->right = NULL;
+        else parent->right = new Node(input_val_right);
 
         if(parent->left != NULL) q.push(parent->left);
         if(parent->right != NULL) q.push(parent->right);
     }
+    return root;
+}
+void po_traverse(Node* root)
+{
+    if(root == NULL) return;
+    po_traverse(root->left);
+    po_traverse(root->right);
+    cout << root->val << ' ';
+}
+void lo_traverse(Node* root)
+{
+    if(root == NULL) return;
+    queue<Node*> q;
+    q.push(root);
+    while(!q.empty())
+    {
+        Node* parent = q.front();
+        q.pop();
+
+        cout << parent->val << ' '; 
+
+        if(parent->left != NULL) q.push(parent->left);
+        if(parent->right != NULL) q.push(parent->right); 
+    }
+    
 }
 Node* convert(int arr[], int left, int right)
 {
-    if( left > right ) return NULL;
-    int mid = (left + right) / 2;
+    if(left>right) return NULL;
+    int mid = (left + right ) / 2;
     Node* root = new Node(arr[mid]);
-    Node* new_node_left = convert(arr, left, mid - 1);
-    Node* new_node_right = convert(arr, mid + 1, right);
-    root->left = new_node_left;
-    root->right = new_node_right;
+    Node* left_node = convert(arr, left, mid - 1);
+    Node* right_node = convert(arr, mid + 1, right);
+    root->left = left_node;
+    root->right = right_node; 
     return root;
-
 }
 int main()
 {
-    int arr[9] = {1, 3, 5, 6, 7, 21, 26, 31, 40};
-    Node* root = convert(arr, 0, 8);    
-    lo_traversal(root);
+    int arr[10] = {24, 31, 35, 44, 60, 100, 120, 130, 150, 155};
+    Node* root = convert(arr, 0, 9);
+    lo_traverse(root);
     return 0;
 }
