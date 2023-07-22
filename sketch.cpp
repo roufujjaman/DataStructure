@@ -1,26 +1,25 @@
 #include<bits/stdc++.h>
 using namespace std;
+void fun( set<int>& s)
+{
+    s = {10, 20, 30, 40, 50, 60, 100, 22, 20, 10 ,30, 50};
+}
 int main()
 {
-    vector<int> v; 
-    int count, input_val;
-    cin >> count;
-    for(int i = 0; i < count; i++)
+    int k = 4;
+    vector<int> v = {2, 1, 3};
+    // traverse(root, v);
+    bool found = false;
+    for(int i = 0; i < v.size() - 1; i++)
     {
-        cin >> input_val;
-        v.push_back(input_val);
-        int current_index = i;
-        while (current_index != 0)
+        for(int j = i + 1; j < v.size(); j++)
         {
-            int parent_index = (current_index - 1) / 2;
-            if(v[parent_index] < v[current_index]) swap(v[parent_index], v[current_index]);
-            else break;
-            current_index = parent_index;
+            if(v[i] + v[j] == k)
+            {
+                cout << v[i] << ' ' << v[j] << '\n';
+                break;
+            }
         }
-    }
-    for( int i: v)
-    {
-        cout << i << ' ';
-    }
+    }  
     return 0;
 }
